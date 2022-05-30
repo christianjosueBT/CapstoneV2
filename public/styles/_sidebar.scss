@@ -1,0 +1,231 @@
+// SIDEBAR CSS
+// taken from the following website:
+// https://bbbootstrap.com/snippets/sidebar-menu-sub-menus-and-toggle-button-27928347
+
+@use 'variables' as *;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  // user-select: none;
+  box-sizing: border-box;
+  font-family: 'Poppins';
+}
+
+body {
+  background-color: $white;
+}
+
+%btn {
+  z-index: $layer-2;
+  position: absolute;
+  display: grid;
+  place-content: center;
+  top: $size-5;
+  height: $size-9;
+  width: $size-9;
+  text-align: center;
+  background: $black;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &.click i:before {
+    content: '\f00d';
+  }
+
+  &.click {
+    z-index: $layer-3;
+  }
+
+  i {
+    color: $white;
+    font-size: $font-size-5;
+    line-height: $font-size-5;
+  }
+}
+.btn-left {
+  @extend %btn;
+  left: $size-4;
+}
+.btn-right {
+  @extend %btn;
+  right: $size-4;
+}
+
+%sidebar {
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch;
+  color: $white;
+  z-index: $layer-2;
+  width: $size-content-2;
+  height: calc(var(--vh, 1vh) * 100);
+  background: $black;
+  overflow: hidden;
+  // transform: translateX(0);
+  transition: transform 0.2s ease;
+}
+.sidebar-left {
+  @extend %sidebar;
+  left: -$size-content-2;
+
+  &__profile {
+    font-weight: 600;
+    line-height: 65px;
+    text-align: center;
+    // background-image: url(../imgs/default_user_crop.jpeg);
+    background-size: contain;
+    letter-spacing: 1px;
+    padding-top: $size-3;
+  }
+
+  .button {
+    border: none;
+    padding: 0;
+    width: 100%;
+  }
+  .button:hover {
+    background-color: $orange;
+    color: $white;
+  }
+}
+.sidebar-right {
+  @extend %sidebar;
+  overflow: auto;
+  right: -$size-content-2;
+
+  li {
+    padding-top: $size-3;
+    padding-bottom: $size-1;
+    text-align: center;
+    line-height: 1.5z;
+  }
+
+  &__text {
+    text-align: center;
+    align-self: center;
+    margin: 1em 0;
+  }
+
+  &__item {
+    padding: 0 $size-3;
+
+    &:hover {
+      color: $white;
+    }
+
+    .row {
+      gap: $size-4;
+      * {
+        flex: 1 2;
+      }
+    }
+  }
+}
+
+nav {
+  background: #1e1e1e;
+}
+
+nav ul {
+  background: $black;
+  height: 100%;
+  width: 100%;
+  list-style: none;
+  padding-left: 10px;
+}
+
+nav ul li {
+  line-height: 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: $black;
+}
+
+nav ul li:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+nav ul li a,
+nav .simulateLink {
+  color: $white;
+  text-decoration: none;
+  font-size: 13px;
+  padding-left: 14px;
+  font-weight: 500;
+  display: block;
+  background: $black;
+  width: 100%;
+  border-left: 3px solid transparent;
+}
+
+nav ul li.active a,
+.simulateLink.active {
+  color: $orange;
+  background: $black;
+  border-left-color: $orange;
+}
+
+nav ul li a:hover {
+  background: $black;
+}
+
+.feat-show {
+  transition: all 0.5s;
+}
+
+nav ul li.active ul {
+  transition: all 0.5s;
+}
+
+nav ul ul {
+  position: static;
+  display: none;
+}
+
+nav ul.show {
+  display: block;
+  transition: all 0.5s;
+}
+
+nav ul ul li {
+  line-height: 42px;
+  border-top: none;
+}
+
+nav ul ul li a {
+  font-size: 12px;
+  color: $white;
+}
+
+nav ul li.active ul li a {
+  color: $white;
+  background: $black;
+  border-left-color: transparent;
+}
+
+a:hover,
+.simulateLink:hover {
+  color: $orange;
+}
+
+nav ul li a span {
+  z-index: $layer-2;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  font-size: 15px;
+  transition: transform 0.4s;
+}
+
+nav ul li a span.rotate {
+  transform: translateY(-50%) rotate(-180deg);
+}
+
+#formNumber {
+  width: $size-11;
+}

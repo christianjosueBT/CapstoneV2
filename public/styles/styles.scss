@@ -1,0 +1,312 @@
+@use 'sidebar';
+@use 'quagga';
+@use 'nutritionLabel';
+@use 'variables' as *;
+// custom fonts
+@font-face {
+  font-family: SFMonoRegular;
+  // src: url(../../sf-mono-cufonfonts/SFMonoBold.otf);
+  src: url(../../sf-mono-cufonfonts/SFMonoRegular.otf);
+}
+@font-face {
+  font-family: SFMonoHeavy;
+  src: url(../../sf-mono-cufonfonts/SFMonoHeavy.otf);
+}
+@font-face {
+  font-family: SFMonoLight;
+  src: url(../../sf-mono-cufonfonts/SFMonoLight.otf);
+}
+@font-face {
+  font-family: SFMonoMedium;
+  src: url(../../sf-mono-cufonfonts/SFMonoMedium.otf);
+}
+
+// ********************** ROOT AND GENERAL STYLES **********************
+// border box sizing is so much better
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: SFMonoRegular, sans-serif;
+  margin: 0;
+}
+
+// general
+header {
+  background: $green-dark;
+  padding: 0.5em 0;
+}
+
+video {
+  object-fit: fill;
+}
+
+img {
+  max-width: 100%;
+  margin-bottom: $size-3;
+}
+
+a {
+  padding-left: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.btn {
+  padding: $size-2;
+}
+
+// ********************** UTILITIES STYLES **********************
+.alert {
+  position: absolute;
+  display: inline-block;
+  top: 5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // right: 0;
+  margin: 0 auto;
+  // width: content;
+  z-index: $layer-2;
+}
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.row-around {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.row-between {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.column-center {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.wrapper {
+  z-index: $layer-1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
+}
+
+.container-grid {
+  display: grid;
+  place-items: center;
+}
+
+.vh-75 {
+  height: calc(var(--vh, 1vh) * 75) !important;
+}
+
+.display--none {
+  display: none !important;
+}
+
+.bgrnd-white {
+  background-color: $white !important;
+  color: $black !important;
+}
+
+.bgrnd-dark {
+  background-color: $black !important;
+  color: $white !important;
+}
+
+.anchor-styles {
+  text-decoration: underline $orange 3px !important;
+}
+
+.opacity-75 {
+  opacity: 0.85;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.valid-feedback,
+.invalid-feedback {
+  margin-top: -$size-4;
+}
+
+// this is so that we can stack alerts in a nice looking way
+.alert:nth-child(2) {
+  top: 6rem;
+}
+.alert:nth-child(3) {
+  top: 7rem;
+}
+.alert:nth-child(4) {
+  top: 8rem;
+}
+.alert:nth-child(5) {
+  top: 9rem;
+}
+.alert:nth-child(6) {
+  top: 10rem;
+}
+
+// ********************** COMPONENT STYLES **********************
+
+// main section
+.main {
+  margin-top: 3em;
+
+  .primary-content {
+    flex: 2;
+  }
+
+  .sidebar {
+    flex: 1;
+    padding: 1em;
+    text-align: center;
+    color: $white;
+    background-color: $black;
+    border-radius: 1rem;
+    max-width: 450px;
+  }
+}
+
+// navigation
+.nav__link,
+li a,
+.simulateLink {
+  color: $white;
+  text-decoration: none;
+  text-transform: uppercase;
+  // margin-left: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.nav__link:hover {
+  opacity: 0.75;
+  color: $white;
+}
+
+// custom popup styles
+.popupCustom .leaflet-popup-tip,
+.popupCustom .leaflet-popup-content-wrapper {
+  background-color: $black;
+  color: $white;
+  font-size: $font-size-2;
+  // height: $size-content-2;
+  width: $size-content-2;
+}
+
+.leaflet-popup-content {
+  h3 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  button {
+    width: 100%;
+    font-size: $font-size-2;
+  }
+
+  i {
+    color: $orange;
+  }
+}
+
+// button
+.button {
+  border: 2px solid $black;
+  display: inline-block;
+  border-radius: 1em;
+  padding: 1em;
+  font-size: initial;
+  font-weight: initial;
+  font-family: inherit;
+  background-color: $black;
+  cursor: pointer;
+  color: $white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* class to add for mobile support */
+.button--hover {
+  background-color: $white;
+  color: $black;
+}
+
+/* Hover effects */
+@media (hover: hover) {
+  .button:hover {
+    background-color: $white;
+    color: $black;
+  }
+}
+@media (max-width: 603px) {
+  #container {
+    margin: 10px auto;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  #interactive.viewport {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+}
+
+.viewport--placeholder {
+  z-index: $layer-1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  transition: transform 1s ease;
+}
+
+#container {
+  z-index: $layer-1;
+  position: absolute;
+  bottom: calc(var(--vh, 1vh) * -100);
+  right: 0;
+  display: grid;
+  place-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: $white;
+  min-width: 100%;
+  transition: transform 1s linear;
+}
+
+.animate--up {
+  transform: translateY(-100%);
+}
+
+.animate--left {
+  transform: translateX(-$size-content-2);
+}
+
+.animate--right {
+  transform: translateX($size-content-2);
+}

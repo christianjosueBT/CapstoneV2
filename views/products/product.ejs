@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+
+    <!-- bootstrap and fontawesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+    <!-- my styles -->
+    <link rel="stylesheet" href="/styles/styles.css" />
+
+  </head>
+
+  <body>
+
+    <section class="container-grid">
+      <main class="main container-grid">
+        <!-- Brand and product name -->
+        <h1><%=product.brand_name%></h1>
+        <h1><%=product.food_name%></h1>
+        <!-- Images -->
+        <% for (const key in product.photo){%>
+        <% if (typeof product.photo[key] === 'string') {%>
+        <img src="<%=product.photo[key]%>"></img>
+        <% } %>
+        <% } %>
+
+        <!-- Nutritional information table -->
+        <section class="performance-facts">
+          <header class="performance-facts__header">
+            <h1 class="performance-facts__title">Nutrition Facts</h1>
+            <% if (product.serving_weight_grams) { %>
+            <p><%=`Serving size ${product.serving_qty} ${product.serving_unit} (${product.serving_weight_grams} g)`%>
+            </p>
+            <% } else { %>
+            <p><%=`Serving size ${product.serving_qty} ${product.serving_unit}`%>
+            </p>
+            <% } %>
+          </header>
+          <table class="performance-facts__table">
+            <thead>
+              <tr>
+                <th colspan="3" class="small-info">
+                  Amount Per Serving
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th colspan="2">
+                  <strong>Calories</strong>
+                  <%=Math.round((product.nf_calories+Number.EPSILON)*100)/100 %>
+                </th>
+                <td>
+                  Calories from Fat
+                  <%=Math.round((product.nf_total_fat+Number.EPSILON)*100)/100  * 9%>
+                </td>
+              </tr>
+              <tr class="thick-row">
+                <td colspan="3" class="small-info">
+                  <strong>% Daily Value*</strong>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <strong>Total Fat</strong>
+                  <%=Math.round((product.nf_total_fat+Number.EPSILON)*100)/100 %> g
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_total_fat / dailyValue.fat * 100)%>%</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="blank-cell">
+                </td>
+                <th>
+                  Saturated Fat
+                  <%=Math.round((product.nf_saturated_fat+Number.EPSILON)*100)/100 %> g
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_saturated_fat / dailyValue.saturated_fat * 100)%>%</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="blank-cell">
+                </td>
+                <th>
+                  Trans Fat
+                  <% if(product.full_nutrients[product.full_nutrients.length - 1].attr_id !== 605 && product.full_nutrients[product.full_nutrients.length - 2].attr_id !== 605) {%>
+                  0
+                  <%} else if (product.full_nutrients[product.full_nutrients.length - 1].attr_id === 605) {%>
+                  <%=product.full_nutrients[product.full_nutrients.length - 1].value%>
+                  <%} else {%>
+                  <%=product.full_nutrients[product.full_nutrients.length - 2].value%>
+                  <%}%>
+              g
+            <td>
+            </td>
+          </tr>
+          <% if (product.nf_cholesterol) {%>
+              <tr>
+                <th colspan="2">
+                  <strong>Cholesterol</strong>
+                  <%=Math.round((product.nf_cholesterol+Number.EPSILON)*100)/100 %> mg
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_cholesterol / dailyValue.cholesterol * 100)%>%</strong>
+                </td>
+              </tr>
+              <% } %>
+              <tr>
+                <th colspan="2">
+                  <strong>Sodium</strong>
+                  <%=Math.round((product.nf_sodium+Number.EPSILON)*100)/100 %> mg
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_sodium / dailyValue.sodium * 100)%>%</strong>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <strong>Total Carbohydrate</strong>
+                  <%=Math.round((product.nf_total_carbohydrate+Number.EPSILON)*100)/100 %> g
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_total_carbohydrate / dailyValue.carbs * 100)%>%</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="blank-cell">
+                </td>
+                <th>
+                  Dietary Fiber
+                  <%=Math.round((product.nf_dietary_fiber+Number.EPSILON)*100)/100%> g
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_dietary_fiber / dailyValue.fibre * 100)%>%</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="blank-cell">
+                </td>
+                <th>
+                  Sugars
+                  <%=Math.round((product.nf_sugars+Number.EPSILON)*100)/100%> g
+                </th>
+                <td>
+                  <strong><%=Math.round(product.nf_sugars / dailyValue.sugar * 100)%>%</strong>
+                </td>
+              </tr>
+              <tr class="thick-end">
+                <th colspan="2">
+                  <strong>Protein</strong>
+                  <%=Math.round((product.nf_protein+Number.EPSILON)*100)/100%> g
+                </th>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be
+            higher or lower depending on your calorie needs:</p>
+
+          <% if(product.nf_ingredient_statement) { %>
+          <p><strong>INGREDIENTS: </strong><%=product.nf_ingredient_statement%></p>
+          <% } %>
+
+          <p class="small-info">
+            Calories per gram:
+          </p>
+          <p class="small-info text-center">
+            Fat 9
+            &bull;
+            Carbohydrate 4
+            &bull;
+            Protein 4
+          </p>
+
+        </section>
+
+      </main>
+    </section>
+  </body>
+
+</html>

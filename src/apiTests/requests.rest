@@ -1,0 +1,68 @@
+# ****************************************
+# ****** Tests for Users API *******
+# ****************************************
+# register a new user
+POST https://localhost:2000/api/v1/users/register
+content-type: application/json
+
+{
+    "name": "Michael",
+    "email": "michael@michael.com",
+    "password": "idklmfaoxd"
+}
+
+###
+#log in a user
+POST https://localhost:2000/api/v1/users/login
+content-type: application/json
+
+{
+  "email": "michael@michael.com",
+  "password": "idklmfaoxd"
+}
+
+###
+# log out a user
+POST https://localhost:2000/api/v1/users/logout
+content-type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjVhZGJmZGJjNzQ1NzY1MzQ0MTYyNjQiLCJuYW1lIjoiTWljaGFlbCIsImVtYWlsIjoibWljaGFlbEBtaWNoYWVsLmNvbSIsImlhdCI6MTY1MDEzMTEzNX0.r9Y6EkNiNlFdBqSq9q8m_veSIV58OWK0rKASBFR8a4I"
+}
+
+
+
+
+###
+# delete a user
+DELETE https://localhost:2000/api/v1/users/delete
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTAxMzIwMzUsIl9pZCI6IjYyNWFkYmZkYmM3NDU3NjUzNDQxNjI2NCIsIm5hbWUiOiJNaWNoYWVsIiwiZW1haWwiOiJtaWNoYWVsQG1pY2hhZWwuY29tIiwiaWF0IjoxNjUwMTMxMTM1fQ.PEN-2GA9U3FQppvmnIjgKQL0zvi9WazCLrGlTtAcvFs
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjVhZGJmZGJjNzQ1NzY1MzQ0MTYyNjQiLCJuYW1lIjoiTWljaGFlbCIsImVtYWlsIjoibWljaGFlbEBtaWNoYWVsLmNvbSIsImlhdCI6MTY1MDEzMTEzNX0.r9Y6EkNiNlFdBqSq9q8m_veSIV58OWK0rKASBFR8a4I",
+  "password": "idklmfaoxd"
+}
+
+###
+
+# ****************************************
+# ****** Tests for Products API *******
+# ****************************************
+
+GET https://localhost:2000/api/v1/products
+
+
+# ****************************************
+# ****** Tests for Nutritionix API *******
+# ****************************************
+
+# not in nutritionix API
+# GET https://trackapi.nutritionix.com/v2/search/item?upc=642782465419
+# in nutritionix API
+GET https://trackapi.nutritionix.com/v2/search/item?upc=055741348270
+# GET https://trackapi.nutritionix.com/v2/search/item?nix_item_id=5db544dceae5ecf422ba2713
+content-type: application/json
+x-app-id: eb44c42b
+x-app-key: e3d69c6f7e173dae24e197ef99aaf447
+x-remote-user-id: 0

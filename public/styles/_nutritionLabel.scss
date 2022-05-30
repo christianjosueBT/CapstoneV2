@@ -1,0 +1,109 @@
+@use 'variables' as *;
+
+.performance-facts {
+  // user-select: text;
+  border: 1px solid $black;
+  background-color: $white;
+  margin: $size-4;
+  // float: left;
+  width: $size-content-3;
+  padding: $size-1;
+  table {
+    border-collapse: collapse;
+  }
+}
+.performance-facts__title {
+  font-weight: bold;
+  font-size: $size-7;
+  margin: 0 0 $size-1 0;
+}
+.performance-facts__header {
+  border-bottom: $size-2 solid $black;
+  background-color: $white;
+  padding: 0 0 $size-1 0;
+  margin: 0 0 $size-1 0;
+  p {
+    margin: 0;
+  }
+}
+.performance-facts__table {
+  width: 100%;
+  thead tr {
+    th,
+    td {
+      border: 0;
+    }
+  }
+  th,
+  td {
+    font-weight: normal;
+    text-align: left;
+    padding: $size-0 0;
+    border-top: 1px solid $black;
+    white-space: nowrap;
+  }
+  td {
+    &:last-child {
+      text-align: right;
+    }
+  }
+  .blank-cell {
+    width: $size-3;
+    border-top: 0;
+  }
+  .thick-row {
+    th,
+    td {
+      border-top-width: 5px;
+    }
+  }
+}
+.small-info {
+  font-size: $size-2;
+}
+
+.performance-facts__table--small {
+  @extend .performance-facts__table;
+  border-bottom: 1px solid $grey;
+  margin: 0 0 $size-1 0;
+  thead {
+    tr {
+      border-bottom: 1px solid $black;
+    }
+  }
+  td {
+    &:last-child {
+      text-align: left;
+    }
+  }
+  th,
+  td {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.performance-facts__table--grid {
+  @extend .performance-facts__table;
+  margin: 0 0 $size-1 0;
+  td {
+    &:last-child {
+      text-align: left;
+      &::before {
+        content: '•';
+        font-weight: bold;
+        margin: 0 $size-1 0 0;
+      }
+    }
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+.thick-end {
+  border-bottom: 10px solid $black;
+}
+.thin-end {
+  border-bottom: 1px solid $black;
+}
